@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:340600906367:android:cc8d097689ad5f2639954a",
+        "mobilesdk_app_id": "1:340600906367:android:5ea4f80423b708b439954a",
         "android_client_info": {
           "package_name": "com.chatapp"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "340600906367-4qd1t08bs62mpdtc067cckicdakkkp4t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chatapp",
+            "certificate_hash": "6e05eb001a4cc0ba6c8cd7a0b5a63d208d913fce"
+          }
+        },
         {
           "client_id": "340600906367-qqqs69rdppat1q2ge1d7hdvnkessk8qv.apps.googleusercontent.com",
           "client_type": 3
@@ -31,10 +39,10 @@
               "client_type": 3
             },
             {
-              "client_id": "340600906367-s41rrru92ttnafaf0cdsafejivjgevsh.apps.googleusercontent.com",
+              "client_id": "340600906367-efqvg7j4j0t9d54b81n35c0amb6a2v86.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.libanrage.chatapp"
+                "bundle_id": "org.reactjs.native.example.chatapp"
               }
             }
           ]
