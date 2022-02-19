@@ -1,20 +1,23 @@
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
+import AuthStack from './src/navigation/AuthStack';
+import ChatStack from './src/navigation/ChatStack';
 
 const App = () => {
+  const [user, setUser] = useState<boolean>(false);
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+  setTimeout(() => {
+    setUser(true);
+  }, 5000);
   return (
-    <View style={styles.container}>
-      <Text>Hej</Text>
-    </View>
+    <NavigationContainer>
+      {user ? <ChatStack /> : <AuthStack />}
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default App;
