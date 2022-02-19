@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "340600906367",
+    "project_id": "hoc-chatapp-20ac7",
+    "storage_bucket": "hoc-chatapp-20ac7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340600906367:android:cc8d097689ad5f2639954a",
+        "android_client_info": {
+          "package_name": "com.chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "340600906367-qqqs69rdppat1q2ge1d7hdvnkessk8qv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwQJrJxfV9SPbj0k3SH_ttAsNyqtFmESQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "340600906367-qqqs69rdppat1q2ge1d7hdvnkessk8qv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "340600906367-s41rrru92ttnafaf0cdsafejivjgevsh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.libanrage.chatapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
