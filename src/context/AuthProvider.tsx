@@ -36,12 +36,12 @@ export const AuthProvider = (({ children }) => {
     });
   }, []);
 
-  //Handle user state changes
   // const onAuthStateChanged = (user: any) => {
-  //   setCurrentUser(user);
-  //   if (loading) setLoading(false);
-  // };
-
+    //   setCurrentUser(user);
+    //   if (loading) setLoading(false);
+    // };
+    
+    //Handle user state changes
   useEffect(() => {
     const unsubscribe = auth().onAuthStateChanged((user) => {
       setCurrentUser(user);
@@ -70,8 +70,6 @@ export const AuthProvider = (({ children }) => {
 
   const signOut = async () => {
     try {
-      await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut();
       auth()
         .signOut()
         .then(() => Alert.alert("You're signed out!"));
