@@ -1,10 +1,6 @@
-import { NavigationContainer } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
 import SplashScreen from 'react-native-splash-screen';
-import AuthProvider, { useAuth } from './src/context/AuthProvider';
-import AuthStack from './src/navigation/AuthStack';
-import ChatStack from './src/navigation/ChatStack';
+import AuthProvider from './src/context/AuthProvider';
 import Routes from './src/navigation/Routes';
 
 const App = () => {
