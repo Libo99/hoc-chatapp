@@ -22,10 +22,13 @@ export const AuthProvider = (({ children }) => {
   );
 
   const [loading, setLoading] = useState<boolean>(true);
+  
 
   useEffect(() => {
     GoogleSignin.configure({
-      webClientId: process.env.WEB_CLIENT_ID,
+      //cannot read from .env file for some reason
+      //but it works with a string
+      webClientId: process.env.ANDROID_CLIENT_ID,
       iosClientId: process.env.IOS_CLIENT_ID,
       scopes: ['email', 'profile'],
     });
