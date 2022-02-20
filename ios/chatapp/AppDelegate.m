@@ -55,27 +55,28 @@ static void InitializeFlipper(UIApplication *application) {
   
   //show splash screen on default
   [RNSplashScreen show];
-  
+  //This has to be here for fb login to work
+  //on IOS
   [[FBSDKApplicationDelegate sharedInstance] application:application
     didFinishLaunchingWithOptions:launchOptions];
   
   return YES;
 }
-//added fb sdk
-- (BOOL)application:(UIApplication *)app
-            openURL:(NSURL *)url
-            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
-{
-  if ([[FBSDKApplicationDelegate sharedInstance] application:app openURL:url options:options]) {
-    return YES;
-  }
+//This is actually not needed
+// - (BOOL)application:(UIApplication *)app
+//             openURL:(NSURL *)url
+//             options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+// {
+//   if ([[FBSDKApplicationDelegate sharedInstance] application:app openURL:url options:options]) {
+//     return YES;
+//   }
 
-  if ([RCTLinkingManager application:app openURL:url options:options]) {
-    return YES;
-  }
+//   if ([RCTLinkingManager application:app openURL:url options:options]) {
+//     return YES;
+//   }
 
-  return NO;
-}
+//   return NO;
+// }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
