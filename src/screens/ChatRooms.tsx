@@ -8,7 +8,7 @@ const ChatRooms = (props: Props) => {
   const { currentUser, signOut } = useAuth();
   return (
     <View>
-      <Text>Hi {currentUser.email}</Text>
+      <Text>Hi {currentUser.displayName}</Text>
       <Text>ChatRooms</Text>
       <TouchableOpacity onPress={signOut}>
       <Text>SignOut</Text>
