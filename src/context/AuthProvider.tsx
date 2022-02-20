@@ -3,6 +3,7 @@ import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
+import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { Alert } from 'react-native';
 import { WEB_CLIENT_ID } from '@env';
@@ -14,6 +15,7 @@ interface AuthMode {
   googleLogin: () => void;
   currentUser: any;
   signOut: () => void;
+  facebookLogin: () => void;
 }
 const AuthContext = createContext({} as AuthMode);
 
@@ -35,13 +37,16 @@ export const AuthProvider = (({ children }) => {
   }, []);
 
   //Handle user state changes
-  const onAuthStateChanged = (user: any) => {
-    setCurrentUser(user);
-    if (loading) setLoading(false);
-  };
+  // const onAuthStateChanged = (user: any) => {
+  //   setCurrentUser(user);
+  //   if (loading) setLoading(false);
+  // };
 
   useEffect(() => {
-    const unsubscribe = auth().onAuthStateChanged(onAuthStateChanged);
+    const unsubscribe = auth().onAuthStateChanged((user) => {
+      setCurrentUser(user);
+      setLoading(false);
+    });
 
     return unsubscribe;
   }, []);
@@ -75,10 +80,41 @@ export const AuthProvider = (({ children }) => {
     }
   };
 
+  const facebookLogin = async () => {
+    try {
+      // Attempt login with permissions
+      const result = await LoginManager.logInWithPermissions([
+        'public_profile',
+        'email',
+      ]);
+
+      if (result.isCancelled) {
+        Alert.alert('login process was cancelled');
+      }
+
+      // Once signed in, get the users AccesToken
+      const data = await AccessToken.getCurrentAccessToken();
+
+      if (!data) {
+        throw 'Something went wrong obtaining access token';
+      }
+      // Create a Firebase credential with the AccessToken
+      const facebookCredential = auth.FacebookAuthProvider.credential(
+        data?.accessToken
+      );
+
+      // Sign-in the user with the credential
+      await auth().signInWithCredential(facebookCredential);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const value = {
     currentUser,
     googleLogin,
     signOut,
+    facebookLogin,
   };
 
   return (
