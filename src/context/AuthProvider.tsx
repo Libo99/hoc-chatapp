@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect, createContext } from 'react';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { Alert } from 'react-native';
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -8,6 +9,7 @@ interface AuthProviderProps {
 interface AuthMode {
   googleLogin: () => void;
   currentUser: any;
+  signOut: () => void;
 }
 const AuthContext = createContext({} as AuthMode);
 
@@ -18,6 +20,7 @@ export const AuthProvider = (({ children }) => {
   const [currentUser, setCurrentUser] = useState<FirebaseAuthTypes.User | null>(
     null
   );
+
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -40,15 +43,29 @@ export const AuthProvider = (({ children }) => {
     return unsubscribe;
   }, []);
 
+  const signOut = async () => {
+    try {
+      await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
+      auth()
+        .signOut()
+        .then(() => Alert.alert('Your are signed out!'));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const googleLogin = async () => {
     try {
+      await GoogleSignin.hasPlayServices();
       const { idToken } = await GoogleSignin.signIn();
+      console.log(idToken);
 
       // Create a Google credential with the token
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
       // Sign-in the user with the credential
-      return auth().signInWithCredential(googleCredential);
+      await auth().signInWithCredential(googleCredential);
     } catch (error) {
       console.log(error);
     }
@@ -58,6 +75,7 @@ export const AuthProvider = (({ children }) => {
   const value = {
     currentUser,
     googleLogin,
+    signOut,
   };
 
   return (
