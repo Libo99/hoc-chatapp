@@ -30,6 +30,7 @@ const Login = (() => {
           title="Log in with Google"
           onPress={googleLogin}
         />
+        <View style={styles.spacer} />
         <SocialButton
           type="facebook"
           title="Log in with Facebook"
@@ -70,6 +71,9 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     marginTop: 2,
     color: 'black',
+  },
+  spacer: {
+    marginBottom: 10,
   },
   buttonscontainer: {
     flex: 1,
