@@ -1,7 +1,7 @@
 import { ChatMessages } from "./ChatMessage";
 
 export interface Room {
-  id: string;
+  _id: string;
   name: string;
   description: string;
   messages: ChatMessages;
