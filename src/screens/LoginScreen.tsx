@@ -15,14 +15,16 @@ const Login = (() => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.logocontainer}>
+      <View style={styles.topcontainer}>
+        <Text style={styles.herotext}>Rage Chat</Text>
         <ImageBackground
-          source={require('../../assets/logo2.png')}
-          style={styles.logo}
+          source={require('../../assets/hero.png')}
+          style={styles.heroimage}
         >
-          <Text style={styles.logotext}>Rage Chat</Text>
+          <Text style={styles.subherotext}>
+            Connect with Friends and Family!
+          </Text>
         </ImageBackground>
-        <Text style={styles.sublogotext}>Connect with Friends and Family</Text>
       </View>
       <View style={styles.buttonscontainer}>
         <SocialButton
@@ -48,25 +50,25 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
-  logocontainer: {
+  topcontainer: {
     flex: 2,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  logo: {
+  heroimage: {
     height: 300,
     width: 400,
     resizeMode: 'contain',
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
-  logotext: {
+  herotext: {
     fontSize: 27,
-    fontWeight: '700',
+    fontWeight: '900',
     color: 'green',
   },
-  sublogotext: {
+  subherotext: {
     fontSize: 15,
     fontWeight: '400',
     marginTop: 2,
