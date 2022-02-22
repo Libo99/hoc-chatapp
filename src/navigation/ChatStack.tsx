@@ -6,8 +6,8 @@ import ChatRooms from '../screens/ChatRoomsScreen';
 const ChatStack = () => {
   const Stack = createNativeStackNavigator();
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="ChatRooms" component={ChatRooms} />
+    <Stack.Navigator>
+      <Stack.Screen options={{headerShown: false}} name="ChatRooms" component={ChatRooms} />
       <Stack.Screen name="Chat" component={Chat} />
     </Stack.Navigator>
   );
