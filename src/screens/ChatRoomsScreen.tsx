@@ -10,10 +10,11 @@ import { useAuth } from '../context/AuthProvider';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import firestore from '@react-native-firebase/firestore';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import Card from '../components/Card/Card';
 
 type ChatRoomsScreenParamList = {
   ChatRooms: undefined;
-  Chat: { chat: any };
+  Chat: { room: any };
 };
 type NavigationProps = NativeStackScreenProps<
   ChatRoomsScreenParamList,
@@ -40,15 +41,12 @@ const ChatRooms = (({ navigation }) => {
     fetchRooms();
   }, []);
 
-  useEffect(() => {
-    console.log(chatRooms);
-  });
   const renderChatRooms = ({ item }) => {
     return (
-      <TouchableOpacity onPress={() => navigation.navigate('Chat', item)}>
-        <Text>{item.name}</Text>
-        <Text>{item.description}</Text>
-      </TouchableOpacity>
+      <Card
+        item={item}
+        onPress={() => navigation.navigate('Chat', { room: item })}
+      />
     );
   };
   return (
@@ -59,12 +57,14 @@ const ChatRooms = (({ navigation }) => {
         {/* <TouchableOpacity onPress={signOut}>
           <Text>SignOut</Text>
         </TouchableOpacity> */}
-        <FlatList
-          style={{ flex: 1 }}
-          data={chatRooms}
-          renderItem={renderChatRooms}
-          keyExtractor={(item) => item._id}
-        />
+        <>
+          <FlatList
+            style={{ flex: 1 }}
+            data={chatRooms}
+            renderItem={renderChatRooms}
+            keyExtractor={(item) => item._id}
+          />
+        </>
       </View>
     </SafeAreaView>
   );
@@ -74,13 +74,13 @@ export default ChatRooms;
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
-    flexDirection: 'column',
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   container2: {
     flex: 1,
+    justifyContent: 'center',
+
+    display: 'flex',
+    flexDirection: 'column',
   },
 });
