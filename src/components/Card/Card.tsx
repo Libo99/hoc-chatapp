@@ -1,17 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-
-interface Room {
-  id: string;
-  name: string;
-  description: string;
-  messages: Messages;
-}
-interface Messages {
-  text: string;
-  createdAt: Date;
-  user: any;
-}
+import { Room } from '../../types/Room';
 
 interface CardProps {
   item: Room;
