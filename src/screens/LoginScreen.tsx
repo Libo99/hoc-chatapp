@@ -1,29 +1,24 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  ImageBackground,
-  Platform,
-} from 'react-native';
+import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import React from 'react';
 import { useAuth } from '../context/AuthProvider';
 import SocialButton from '../components/SocialButton/SocialButton';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Login = (() => {
   const { googleLogin, facebookLogin } = useAuth();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.topcontainer}>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.spacer} />
+      <View style={styles.top}>
         <Text style={styles.herotext}>Rage Chat</Text>
+      </View>
+      <View style={styles.imagewrapper}>
         <ImageBackground
           source={require('../../assets/hero.png')}
           style={styles.heroimage}
         >
-          <Text style={styles.subherotext}>
-            Connect with Friends and Family!
-          </Text>
+          <Text style={styles.imagetext}>Connect with Friends and Family!</Text>
         </ImageBackground>
       </View>
       <View style={styles.buttonscontainer}>
@@ -39,7 +34,7 @@ const Login = (() => {
           onPress={facebookLogin}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }) as React.FC;
 
@@ -50,11 +45,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
-  topcontainer: {
-    flex: 2,
-    display: 'flex',
-    justifyContent: 'center',
+  top: {
     alignItems: 'center',
+  },
+  imagewrapper: {
+    flex: 2.5,
+    justifyContent: 'center',
   },
   heroimage: {
     height: 300,
@@ -68,8 +64,8 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     color: 'green',
   },
-  subherotext: {
-    fontSize: 15,
+  imagetext: {
+    fontSize: 17,
     fontWeight: '400',
     marginTop: 2,
     color: 'black',
@@ -79,7 +75,6 @@ const styles = StyleSheet.create({
   },
   buttonscontainer: {
     flex: 1,
-    justifyContent: 'center',
-    marginBottom: 30,
+    justifyContent: 'flex-start',
   },
 });
