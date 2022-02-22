@@ -1,6 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Chat from '../screens/ChatScreen';
+import Chat from '../screens/ChatRoomScreen';
 import ChatRooms from '../screens/ChatRoomsScreen';
 
 const ChatStack = () => {

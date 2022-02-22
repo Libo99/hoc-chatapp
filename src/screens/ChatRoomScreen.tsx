@@ -3,14 +3,14 @@ import React from 'react'
 
 type Props = {}
 
-const Chat = (props: Props) => {
+const ChatRoom = (props: Props) => {
   return (
     <View>
-      <Text>Chat</Text>
+      <Text>ChatRoom</Text>
     </View>
   )
 }
 
-export default Chat
+export default ChatRoom
 
 const styles = StyleSheet.create({})
