@@ -14,7 +14,7 @@ import Card from '../components/Card/Card';
 
 type ChatRoomsScreenParamList = {
   ChatRooms: undefined;
-  Chat: { room: any };
+  ChatRoom: { room: any };
 };
 type NavigationProps = NativeStackScreenProps<
   ChatRoomsScreenParamList,
@@ -45,7 +45,7 @@ const ChatRoomsScreen = (({ navigation }) => {
     return (
       <Card
         item={item}
-        onPress={() => navigation.navigate('Chat', { room: item })}
+        onPress={() => navigation.navigate('ChatRoom', { room: item })}
       />
     );
   };
