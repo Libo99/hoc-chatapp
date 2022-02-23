@@ -1,9 +1,9 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import { Room } from '../../types/Room';
+import { ChatRoom } from '../../types/ChatRoom';
 
 interface CardProps {
-  item: Room;
+  item: ChatRoom;
   onPress: () => void;
 }
 

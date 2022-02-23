@@ -1,6 +1,6 @@
 import { User } from './User';
 
-export interface ChatMessages {
+export interface ChatMessage {
   _id: string;
   text: string;
   createdAt: Date;
