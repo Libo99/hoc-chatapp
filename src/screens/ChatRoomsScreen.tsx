@@ -1,10 +1,4 @@
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthProvider';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -26,7 +20,7 @@ const ChatRoomsScreen = (({ navigation }) => {
   const { currentUser, signOut } = useAuth();
 
   const fetchRooms = async () => {
-    const rooms = await firestore().collection('chatrooms').get();
+    const rooms = await firestore().collection('chatrooms').orderBy('latestmessage.createdAt', 'desc').get();
     const allRooms = rooms.docs.map((room) => {
       const roomData = room.data();
       const data = {
@@ -52,19 +46,14 @@ const ChatRoomsScreen = (({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container2}>
-        <Text>Hi {currentUser.displayName}</Text>
-        <Text>ChatRooms</Text>
-        {/* <TouchableOpacity onPress={signOut}>
-          <Text>SignOut</Text>
-        </TouchableOpacity> */}
-        <>
-          <FlatList
-            style={{ flex: 1 }}
-            data={chatRooms}
-            renderItem={renderChatRooms}
-            keyExtractor={(item) => item._id}
-          />
-        </>
+        <Text style={{ fontSize: 30, fontWeight: '800' }}>
+          Hi {currentUser.displayName.split(' ')[0]}
+        </Text>
+        <FlatList
+          data={chatRooms}
+          renderItem={renderChatRooms}
+          keyExtractor={(item) => item._id}
+        />
       </View>
     </SafeAreaView>
   );

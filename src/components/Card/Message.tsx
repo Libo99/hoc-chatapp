@@ -10,13 +10,15 @@ interface MessageProps {
 const Message = (({ chatMessage }) => {
   const { currentUser } = useAuth();
   return (
-    <>
+    <View
+      style={[
+        styles.container,
+        currentUser.uid === chatMessage.user._id ? styles.user : styles.other,
+      ]}
+    >
       <Image
         source={{
-          uri:
-            currentUser.uid !== chatMessage.user._id
-              ? chatMessage.user.avatar
-              : undefined,
+          uri: chatMessage.user.avatar,
         }}
         style={
           currentUser.uid !== chatMessage.user._id
@@ -24,32 +26,49 @@ const Message = (({ chatMessage }) => {
             : [styles.image, styles.userimage]
         }
       />
-      <View
-        style={
-          currentUser.uid === chatMessage.user._id
-            ? [styles.bubble, styles.userbubble]
-            : [styles.bubble, styles.otherbubble]
-        }
-      >
-        <Text lineBreakMode="tail" numberOfLines={2}>
-          {currentUser.displayName !== chatMessage.user.name
-            ? chatMessage.user.name
-            : ''}
+      <View>
+        <Text>{chatMessage.user.name}</Text>
+        <View
+          style={
+            currentUser.uid === chatMessage.user._id
+              ? [styles.bubble, styles.userbubble]
+              : [styles.bubble, styles.otherbubble]
+          }
+        >
+          <Text>{chatMessage.text}</Text>
+        </View>
+        <Text>
+          {new Date(chatMessage.createdAt).toLocaleTimeString([], {
+            hour: 'numeric',
+            minute: 'numeric',
+            day: '2-digit',
+            weekday: 'short',
+          })}
         </Text>
-        <Text>{chatMessage.text}</Text>
-        <Text>{new Date(chatMessage.createdAt).toLocaleTimeString()}</Text>
       </View>
-    </>
+    </View>
   );
 }) as React.FC<MessageProps>;
 
 export default Message;
 
 const styles = StyleSheet.create({
+  container: {
+    marginBottom: 50,
+    flex: 1,
+  },
+  user: {
+    flexDirection: 'row-reverse',
+  },
+  other: {
+    flexDirection: 'row',
+  },
   bubble: {
-    borderRadius: 5,
+    borderRadius: 9,
     marginBottom: 10,
+    marginHorizontal: 10,
     paddingHorizontal: 10,
+    paddingVertical: 12,
     alignItems: 'flex-start',
   },
   userbubble: {
@@ -58,7 +77,6 @@ const styles = StyleSheet.create({
   },
   otherbubble: {
     alignSelf: 'flex-start',
-
     backgroundColor: 'grey',
   },
   image: {

@@ -21,7 +21,7 @@ type ChatRoomScreenParamList = {
 };
 type NavigationProps = NativeStackScreenProps<ChatRoomScreenParamList, 'Chat'>;
 
-const ChatRoomScreen = (() => {
+const ChatRoomScreen = (({ navigation }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [message, setMessage] = useState<string>('');
   const { currentUser } = useAuth();
@@ -29,6 +29,11 @@ const ChatRoomScreen = (() => {
   const route = useRoute<Route<string, { chatRoom: ChatRoom }>>();
 
   const { chatRoom } = route.params;
+
+  useEffect(() => {
+    navigation.setOptions({ title: chatRoom.name });
+  }, [chatRoom]);
+
   useEffect(() => {
     const messagesListener = firestore()
       .collection('chatrooms')
@@ -69,6 +74,18 @@ const ChatRoomScreen = (() => {
           avatar: currentUser.photoURL,
         },
       });
+    await firestore()
+      .collection('chatrooms')
+      .doc(chatRoom._id)
+      .set(
+        {
+          latestmessage: {
+            text: message,
+            createdAt: new Date().getTime(),
+          },
+        },
+        { merge: true }
+      );
     setMessage('');
   };
 
