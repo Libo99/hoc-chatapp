@@ -44,7 +44,7 @@ const ChatRoomsScreen = (({ navigation }) => {
   const renderChatRooms = ({ item }) => {
     return (
       <Card
-        item={item}
+        room={item}
         onPress={() => navigation.navigate('ChatRoom', { room: item })}
       />
     );

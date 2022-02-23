@@ -1,35 +1,15 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { ChatRoom } from '../../types/ChatRoom';
+import Room from './Room';
 
 interface CardProps {
-  item: ChatRoom;
+  room: ChatRoom;
   onPress: () => void;
 }
 
-const Card = (({ item, onPress }) => {
-  return (
-    <TouchableOpacity style={styles.cardcontainer} onPress={onPress}>
-      <Text style={styles.cardtitle}>{item.name}</Text>
-      <Text style={styles.cardsubtitle}>{item.description}</Text>
-    </TouchableOpacity>
-  );
+const Card = (({ room, onPress }) => {
+  return <>{room && <Room room={room} onPress={onPress} />}</>;
 }) as React.FC<CardProps>;
 
 export default Card;
-
-const styles = StyleSheet.create({
-  cardcontainer: {
-    borderRadius: 3,
-    marginVertical: 5,
-    borderColor: 'lightgrey',
-    borderBottomWidth: 0.6,
-    paddingBottom: 3,
-  },
-  cardtitle: {
-    fontSize: 20,
-  },
-  cardsubtitle: {
-    fontSize: 12,
-  },
-});
