@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthProvider';
 import SocialButton from '../components/SocialButton/SocialButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const Login = (() => {
+const LoginScreen = (() => {
   const { googleLogin, facebookLogin } = useAuth();
 
   return (
@@ -38,7 +38,7 @@ const Login = (() => {
   );
 }) as React.FC;
 
-export default Login;
+export default LoginScreen;
 
 const styles = StyleSheet.create({
   container: {

@@ -10,22 +10,22 @@ import {
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
-import { ChatMessages } from '../types/ChatMessage';
+import { ChatMessage } from '../types/ChatMessage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Route, useRoute } from '@react-navigation/native';
-import { Room } from '../types/Room';
+import { ChatRoom } from '../types/ChatRoom';
 
 type ChatRoomScreenParamList = {
   Chat: undefined;
 };
 type NavigationProps = NativeStackScreenProps<ChatRoomScreenParamList, 'Chat'>;
 
-const ChatRoom = (() => {
-  const [messages, setMessages] = useState<ChatMessages[]>([]);
+const ChatRoomScreen = (() => {
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [message, setMessage] = useState<string>('');
   const { currentUser } = useAuth();
 
-  const route = useRoute<Route<string, { room: Room }>>();
+  const route = useRoute<Route<string, { room: ChatRoom }>>();
 
   const { room } = route.params;
   useEffect(() => {
@@ -103,7 +103,7 @@ const ChatRoom = (() => {
   );
 }) as React.FC<NavigationProps>;
 
-export default ChatRoom;
+export default ChatRoomScreen;
 
 const styles = StyleSheet.create({
   chatcontainer: {

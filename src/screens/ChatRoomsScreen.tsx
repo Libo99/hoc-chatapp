@@ -14,14 +14,14 @@ import Card from '../components/Card/Card';
 
 type ChatRoomsScreenParamList = {
   ChatRooms: undefined;
-  Chat: { room: any };
+  ChatRoom: { room: any };
 };
 type NavigationProps = NativeStackScreenProps<
   ChatRoomsScreenParamList,
   'ChatRooms'
 >;
 
-const ChatRooms = (({ navigation }) => {
+const ChatRoomsScreen = (({ navigation }) => {
   const [chatRooms, setChatRooms] = useState<any>([]);
   const { currentUser, signOut } = useAuth();
 
@@ -44,8 +44,8 @@ const ChatRooms = (({ navigation }) => {
   const renderChatRooms = ({ item }) => {
     return (
       <Card
-        item={item}
-        onPress={() => navigation.navigate('Chat', { room: item })}
+        room={item}
+        onPress={() => navigation.navigate('ChatRoom', { room: item })}
       />
     );
   };
@@ -70,7 +70,7 @@ const ChatRooms = (({ navigation }) => {
   );
 }) as React.FC<NavigationProps>;
 
-export default ChatRooms;
+export default ChatRoomsScreen;
 
 const styles = StyleSheet.create({
   container: {
