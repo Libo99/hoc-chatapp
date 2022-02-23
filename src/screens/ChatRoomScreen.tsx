@@ -47,7 +47,6 @@ const ChatRoomScreen = (() => {
 
           return data;
         });
-
         setMessages(messages);
       });
 
@@ -74,10 +73,14 @@ const ChatRoomScreen = (() => {
   };
 
   const renderMessages = ({ item }) => {
-    return <Card chatMessage={item} />;
+    return (
+      <View style={styles.cardcontainer}>
+        <Card chatMessage={item} />
+      </View>
+    );
   };
   return (
-    <SafeAreaView style={styles.chatcontainer}>
+    <SafeAreaView style={styles.container}>
       <FlatList
         data={messages}
         renderItem={renderMessages}
@@ -97,12 +100,18 @@ const ChatRoomScreen = (() => {
 export default ChatRoomScreen;
 
 const styles = StyleSheet.create({
-  chatcontainer: {
+  container: {
     flex: 1,
+  },
+  list: {
+    flexGrow: 1,
   },
   input: {
     width: '100%',
     height: 30,
     backgroundColor: 'white',
+  },
+  cardcontainer: {
+    marginBottom: 2,
   },
 });

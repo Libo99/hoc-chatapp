@@ -3,6 +3,8 @@ import { ChatRoom } from '../../types/ChatRoom';
 import Room from './Room';
 import { ChatMessage } from '../../types/ChatMessage';
 import Message from './Message';
+import { Image, StyleSheet, View } from 'react-native';
+import { useAuth } from '../../context/AuthProvider';
 
 interface CardProps {
   chatRoom?: ChatRoom;
@@ -11,6 +13,8 @@ interface CardProps {
 }
 
 const Card = (({ chatRoom, onPress, chatMessage }) => {
+  const { currentUser } = useAuth();
+
   return (
     <>
       {chatRoom && <Room chatRoom={chatRoom} onPress={onPress} />}
