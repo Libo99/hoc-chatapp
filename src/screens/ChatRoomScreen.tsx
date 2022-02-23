@@ -20,7 +20,7 @@ type ChatRoomScreenParamList = {
 };
 type NavigationProps = NativeStackScreenProps<ChatRoomScreenParamList, 'Chat'>;
 
-const ChatRoom = (() => {
+const ChatRoomScreen = (() => {
   const [messages, setMessages] = useState<ChatMessages[]>([]);
   const [message, setMessage] = useState<string>('');
   const { currentUser } = useAuth();
@@ -103,7 +103,7 @@ const ChatRoom = (() => {
   );
 }) as React.FC<NavigationProps>;
 
-export default ChatRoom;
+export default ChatRoomScreen;
 
 const styles = StyleSheet.create({
   chatcontainer: {

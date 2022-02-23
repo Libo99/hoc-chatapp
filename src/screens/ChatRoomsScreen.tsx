@@ -21,7 +21,7 @@ type NavigationProps = NativeStackScreenProps<
   'ChatRooms'
 >;
 
-const ChatRooms = (({ navigation }) => {
+const ChatRoomsScreen = (({ navigation }) => {
   const [chatRooms, setChatRooms] = useState<any>([]);
   const { currentUser, signOut } = useAuth();
 
@@ -70,7 +70,7 @@ const ChatRooms = (({ navigation }) => {
   );
 }) as React.FC<NavigationProps>;
 
-export default ChatRooms;
+export default ChatRoomsScreen;
 
 const styles = StyleSheet.create({
   container: {
