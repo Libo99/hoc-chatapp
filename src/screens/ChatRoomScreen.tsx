@@ -14,6 +14,7 @@ import { ChatMessage } from '../types/ChatMessage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Route, useRoute } from '@react-navigation/native';
 import { ChatRoom } from '../types/ChatRoom';
+import Card from '../components/Card/Card';
 
 type ChatRoomScreenParamList = {
   Chat: undefined;
@@ -25,13 +26,13 @@ const ChatRoomScreen = (() => {
   const [message, setMessage] = useState<string>('');
   const { currentUser } = useAuth();
 
-  const route = useRoute<Route<string, { room: ChatRoom }>>();
+  const route = useRoute<Route<string, { chatRoom: ChatRoom }>>();
 
-  const { room } = route.params;
+  const { chatRoom } = route.params;
   useEffect(() => {
     const messagesListener = firestore()
       .collection('chatrooms')
-      .doc(room._id)
+      .doc(chatRoom._id)
       .collection('messages')
       .orderBy('createdAt', 'asc')
       .onSnapshot((querySnapshot) => {
@@ -57,7 +58,7 @@ const ChatRoomScreen = (() => {
   const handleSend = async () => {
     await firestore()
       .collection('chatrooms')
-      .doc(room._id)
+      .doc(chatRoom._id)
       .collection('messages')
       .add({
         text: message,
@@ -73,17 +74,7 @@ const ChatRoomScreen = (() => {
   };
 
   const renderMessages = ({ item }) => {
-    return (
-      <View key={item._id}>
-        <Text>{item.user.name}</Text>
-        <Text>{item.text}</Text>
-        <Text>{new Date(item.createdAt).toLocaleTimeString()}</Text>
-        <Image
-          source={{ uri: item.user.avatar }}
-          style={{ height: 50, width: 50 }}
-        />
-      </View>
-    );
+    return <Card chatMessage={item} />;
   };
   return (
     <SafeAreaView style={styles.chatcontainer}>
