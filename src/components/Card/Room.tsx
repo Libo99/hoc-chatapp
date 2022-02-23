@@ -3,15 +3,15 @@ import React from 'react';
 import { ChatRoom } from '../../types/ChatRoom';
 
 interface CardProps {
-  room: ChatRoom;
-  onPress: () => void;
+  chatRoom: ChatRoom;
+  onPress?: () => void;
 }
 
-const Room = (({ room, onPress }) => {
+const Room = (({ chatRoom, onPress }) => {
   return (
     <TouchableOpacity style={styles.cardcontainer} onPress={onPress}>
-      <Text style={styles.cardtitle}>{room.name}</Text>
-      <Text style={styles.cardsubtitle}>{room.description}</Text>
+      <Text style={styles.cardtitle}>{chatRoom.name}</Text>
+      <Text style={styles.cardsubtitle}>{chatRoom.description}</Text>
     </TouchableOpacity>
   );
 }) as React.FC<CardProps>;
