@@ -64,17 +64,19 @@ const ChatRoomsScreen = (({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.userinfo}>
-        <Image
-          style={styles.userimage}
-          source={{ uri: currentUser.photoURL }}
-        />
-        <Text style={{ fontSize: 30, fontWeight: '800' }}>
-          Hi {currentUser.displayName.split(' ')[0]}
-        </Text>
+        <View style={styles.userinfoleft}>
+          <Image
+            style={styles.userimage}
+            source={{ uri: currentUser.photoURL }}
+          />
+          <Text style={{ fontSize: 30, fontWeight: '800' }}>
+            Hi {currentUser.displayName.split(' ')[0]}
+          </Text>
+        </View>
+        <TouchableOpacity onPress={signOut}>
+          <Text>Signout</Text>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={signOut}>
-        <Text>Signout</Text>
-      </TouchableOpacity>
       <FlatList
         onRefresh={onRefresh}
         refreshing={refresh}
@@ -94,6 +96,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   userinfo: {
+    flexDirection: 'row',
+
+    marginBottom: 10,
+    justifyContent: 'space-between',
+  },
+  userinfoleft: {
     flexDirection: 'row',
     alignItems: 'center',
   },
