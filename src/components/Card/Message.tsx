@@ -26,8 +26,8 @@ const Message = (({ chatMessage }) => {
             : [styles.image, styles.userimage]
         }
       />
-      <View>
-        <Text>{chatMessage.user.name}</Text>
+      <View style={styles.bubblecontainer}>
+        <Text style={styles.username}>{chatMessage.user.name}</Text>
         <View
           style={
             currentUser.uid === chatMessage.user._id
@@ -37,7 +37,7 @@ const Message = (({ chatMessage }) => {
         >
           <Text>{chatMessage.text}</Text>
         </View>
-        <Text>
+        <Text style={styles.date}>
           {new Date(chatMessage.createdAt).toLocaleTimeString([], {
             hour: 'numeric',
             minute: 'numeric',
@@ -56,12 +56,17 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: 50,
     flex: 1,
+    paddingHorizontal: 5,
   },
   user: {
     flexDirection: 'row-reverse',
   },
   other: {
     flexDirection: 'row',
+  },
+  bubblecontainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   bubble: {
     borderRadius: 9,
@@ -73,11 +78,15 @@ const styles = StyleSheet.create({
   },
   userbubble: {
     alignSelf: 'flex-end',
-    backgroundColor: 'blue',
+    backgroundColor: 'lightblue',
   },
   otherbubble: {
     alignSelf: 'flex-start',
-    backgroundColor: 'grey',
+    backgroundColor: 'darkgrey',
+  },
+  username: {
+    fontSize: 10,
+    marginBottom: 2,
   },
   image: {
     height: 50,
@@ -89,5 +98,8 @@ const styles = StyleSheet.create({
   },
   otherimage: {
     alignSelf: 'flex-start',
+  },
+  date: {
+    fontSize: 9,
   },
 });
