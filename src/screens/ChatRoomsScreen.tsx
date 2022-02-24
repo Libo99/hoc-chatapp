@@ -62,22 +62,20 @@ const ChatRoomsScreen = (({ navigation }) => {
   };
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.container2}>
-        <Text style={{ fontSize: 30, fontWeight: '800' }}>
-          Hi {currentUser.displayName.split(' ')[0]}
-        </Text>
-        <TouchableOpacity onPress={signOut}>
-          <Text>Signout</Text>
-        </TouchableOpacity>
-        <FlatList
-          onRefresh={onRefresh}
-          refreshing={refresh}
-          onEndReachedThreshold={0.8}
-          data={chatRooms}
-          renderItem={renderChatRooms}
-          keyExtractor={(item) => item._id}
-        />
-      </View>
+      <Text style={{ fontSize: 30, fontWeight: '800' }}>
+        Hi {currentUser.displayName.split(' ')[0]}
+      </Text>
+      <TouchableOpacity onPress={signOut}>
+        <Text>Signout</Text>
+      </TouchableOpacity>
+      <FlatList
+        onRefresh={onRefresh}
+        refreshing={refresh}
+        onEndReachedThreshold={0.8}
+        data={chatRooms}
+        renderItem={renderChatRooms}
+        keyExtractor={(item) => item._id}
+      />
     </SafeAreaView>
   );
 }) as React.FC<NavigationProps>;
@@ -87,12 +85,5 @@ export default ChatRoomsScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  container2: {
-    flex: 1,
-    justifyContent: 'center',
-
-    display: 'flex',
-    flexDirection: 'column',
   },
 });
