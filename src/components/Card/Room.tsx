@@ -1,6 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { ChatRoom } from '../../types/ChatRoom';
+import { Button, ListItem } from 'react-native-elements';
 
 interface CardProps {
   chatRoom: ChatRoom;
@@ -9,23 +10,23 @@ interface CardProps {
 
 const Room = (({ chatRoom, onPress }) => {
   return (
-    <TouchableOpacity style={styles.cardcontainer} onPress={onPress}>
-      <Text style={styles.cardtitle}>{chatRoom.name}</Text>
-      <Text style={styles.cardsubtitle}>{chatRoom.description}</Text>
-    </TouchableOpacity>
+    <ListItem onPress={onPress} bottomDivider topDivider>
+      <ListItem.Content>
+        <ListItem.Title style={styles.cardtitle}>
+          {chatRoom.name}
+        </ListItem.Title>
+        <ListItem.Subtitle style={styles.cardsubtitle}>
+          {chatRoom.description}
+        </ListItem.Subtitle>
+      </ListItem.Content>
+      <ListItem.Chevron />
+    </ListItem>
   );
 }) as React.FC<CardProps>;
 
 export default Room;
 
 const styles = StyleSheet.create({
-  cardcontainer: {
-    borderRadius: 3,
-    marginVertical: 5,
-    borderColor: 'lightgrey',
-    borderBottomWidth: 0.6,
-    paddingBottom: 3,
-  },
   cardtitle: {
     fontSize: 20,
   },
