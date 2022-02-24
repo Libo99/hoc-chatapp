@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthProvider';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -49,6 +49,9 @@ const ChatRoomsScreen = (({ navigation }) => {
         <Text style={{ fontSize: 30, fontWeight: '800' }}>
           Hi {currentUser.displayName.split(' ')[0]}
         </Text>
+        <TouchableOpacity onPress={signOut}>
+          <Text>Signout</Text>
+        </TouchableOpacity>
         <FlatList
           data={chatRooms}
           renderItem={renderChatRooms}
