@@ -12,6 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import firestore from '@react-native-firebase/firestore';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Card from '../components/Card/Card';
+import { Image } from 'react-native-elements';
 
 type ChatRoomsScreenParamList = {
   ChatRooms: undefined;
@@ -62,9 +63,15 @@ const ChatRoomsScreen = (({ navigation }) => {
   };
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={{ fontSize: 30, fontWeight: '800' }}>
-        Hi {currentUser.displayName.split(' ')[0]}
-      </Text>
+      <View style={styles.userinfo}>
+        <Image
+          style={styles.userimage}
+          source={{ uri: currentUser.photoURL }}
+        />
+        <Text style={{ fontSize: 30, fontWeight: '800' }}>
+          Hi {currentUser.displayName.split(' ')[0]}
+        </Text>
+      </View>
       <TouchableOpacity onPress={signOut}>
         <Text>Signout</Text>
       </TouchableOpacity>
@@ -85,5 +92,15 @@ export default ChatRoomsScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  userinfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  userimage: {
+    height: 50,
+    width: 50,
+    borderRadius: 50,
+    marginRight: 5,
   },
 });
