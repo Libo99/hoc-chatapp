@@ -2,12 +2,13 @@ import {
   FlatList,
   Image,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { ElementRef, useEffect, useRef, useState } from 'react';
 import { useAuth } from '../context/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import { ChatMessage } from '../types/ChatMessage';
@@ -25,6 +26,7 @@ const ChatRoomScreen = (({ navigation }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [message, setMessage] = useState<string>('');
   const { currentUser } = useAuth();
+  const flatlistRef = useRef<any>(null);
 
   const route = useRoute<Route<string, { chatRoom: ChatRoom }>>();
 
@@ -99,6 +101,8 @@ const ChatRoomScreen = (({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
+        ref={flatlistRef}
+        onContentSizeChange={() => flatlistRef.current.scrollToEnd()}
         data={messages}
         renderItem={renderMessages}
         keyExtractor={(item) => item._id}
