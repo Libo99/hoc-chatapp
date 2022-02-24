@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   FlatList,
   Image,
@@ -116,17 +117,22 @@ const ChatRoomScreen = (({ navigation }) => {
   };
 
   const uploadImage = async (image: any) => {
-    console.log(image);
-    const fileName = image.assets[0].fileName;
-    const uri = image.assets[0].uri;
-    const ref = storage().ref(`/images/${fileName}`);
-    const uploadTask = ref.putFile(uri);
-    uploadTask.on('state_changed', console.log, console.error, () => {
-      ref.getDownloadURL().then((url) => {
-        setUserImage(url);
+    if (image.didCancel) return Alert.alert('Process Cancelled');
+    try {
+      const fileName = image.assets[0].fileName;
+      const uri = image.assets[0].uri;
+      const ref = storage().ref(`/images/${fileName}`);
+      const uploadTask = ref.putFile(uri);
+      uploadTask.on('state_changed', console.log, console.error, () => {
+        ref.getDownloadURL().then((url) => {
+          setUserImage(url);
+        });
       });
-    });
+    } catch (error: any) {
+      Alert.alert('something wrong happened, try again');
+    }
   };
+
   const onCameraPress = () => {
     launchCamera(
       {
@@ -166,7 +172,7 @@ const ChatRoomScreen = (({ navigation }) => {
           placeholderTextColor="grey"
         />
         <View>
-          <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+          <View style={styles.toolbar}>
             <Icon name="photo" onPress={onImageLibraryPress} />
             <Icon name="camera" onPress={onCameraPress} />
           </View>
@@ -203,5 +209,10 @@ const styles = StyleSheet.create({
   },
   cardcontainer: {
     marginBottom: 2,
+  },
+  toolbar: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 20,
   },
 });
