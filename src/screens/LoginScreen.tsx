@@ -76,5 +76,6 @@ const styles = StyleSheet.create({
   buttonscontainer: {
     flex: 1,
     justifyContent: 'flex-start',
+    alignItems: 'center'
   },
 });
