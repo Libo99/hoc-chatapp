@@ -739,6 +739,8 @@ PODS:
   - react-native-fbsdk-next/Share (7.1.0):
     - FBSDKShareKit (~> 12.3.2)
     - React-Core
+  - react-native-image-picker (4.7.3):
+    - React-Core
   - react-native-safe-area-context (3.4.1):
     - React-Core
   - react-native-splash-screen (3.3.0):
@@ -874,6 +876,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-fbsdk-next (from `../node_modules/react-native-fbsdk-next`)
+  - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -973,6 +976,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-fbsdk-next:
     :path: "../node_modules/react-native-fbsdk-next"
+  react-native-image-picker:
+    :path: "../node_modules/react-native-image-picker"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-splash-screen:
@@ -1071,6 +1076,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 595f76eba2176ebd8817a1fffd47b84fbdab9383
   React-logger: 23de8ea0f44fa00ee77e96060273225607fd4d78
   react-native-fbsdk-next: 7fa197c23545e36aa7549ef1ede3a63669981bc5
+  react-native-image-picker: 4e6008ad8c2321622affa2c85432a5ebd02d480c
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
   React-perflogger: 3c9bb7372493e49036f07a82c44c8cf65cbe88db

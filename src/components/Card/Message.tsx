@@ -38,10 +38,10 @@ const Message = (({ chatMessage }) => {
           <Text>{chatMessage.text}</Text>
         </View>
         <Text style={styles.date}>
-          {new Date(chatMessage.createdAt).toLocaleTimeString([], {
+          {new Date(chatMessage.createdAt).toLocaleString([], {
             hour: 'numeric',
             minute: 'numeric',
-            day: '2-digit',
+            day: 'numeric',
             weekday: 'short',
           })}
         </Text>

@@ -1,6 +1,8 @@
 import {
   FlatList,
   Image,
+  KeyboardAvoidingView,
+  Platform,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -91,6 +93,10 @@ const ChatRoomScreen = (({ navigation }) => {
     setMessage('');
   };
 
+ const renderInputTool = () => {
+
+ }
+
   const renderMessages = ({ item }) => {
     return (
       <View style={styles.cardcontainer}>
@@ -107,13 +113,18 @@ const ChatRoomScreen = (({ navigation }) => {
         renderItem={renderMessages}
         keyExtractor={(item) => item._id}
       />
-      <TextInput
-        style={styles.input}
-        value={message}
-        onChangeText={(text) => setMessage(text)}
-        onSubmitEditing={handleSend}
-        placeholder="Type a message...."
-      />
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        <TextInput
+          style={styles.input}
+          value={message}
+          onChangeText={(text) => setMessage(text)}
+          onSubmitEditing={handleSend}
+          placeholder="Type a message...."
+          placeholderTextColor="grey"
+        />
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }) as React.FC<NavigationProps>;
@@ -129,8 +140,9 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '100%',
-    height: 30,
+    height: 40,
     backgroundColor: 'white',
+    color: 'black',
   },
   cardcontainer: {
     marginBottom: 2,
