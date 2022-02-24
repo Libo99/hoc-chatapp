@@ -36,6 +36,12 @@ const Message = (({ chatMessage }) => {
           }
         >
           <Text>{chatMessage.text}</Text>
+          {chatMessage.image && (
+            <Image
+              source={{ uri: chatMessage.image }}
+              style={{ height: 100, width: 100 }}
+            />
+          )}
         </View>
         <Text style={styles.date}>
           {new Date(chatMessage.createdAt).toLocaleString([], {

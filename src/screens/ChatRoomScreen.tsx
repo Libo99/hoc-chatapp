@@ -1,16 +1,18 @@
 import {
+  Button,
   FlatList,
   Image,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from 'react-native';
-import React, { ElementRef, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../context/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import { ChatMessage } from '../types/ChatMessage';
@@ -18,6 +20,8 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Route, useRoute } from '@react-navigation/native';
 import { ChatRoom } from '../types/ChatRoom';
 import Card from '../components/Card/Card';
+import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
+import { Icon } from 'react-native-elements';
 
 type ChatRoomScreenParamList = {
   Chat: undefined;
@@ -27,6 +31,7 @@ type NavigationProps = NativeStackScreenProps<ChatRoomScreenParamList, 'Chat'>;
 const ChatRoomScreen = (({ navigation }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [message, setMessage] = useState<string>('');
+  const [response, setResponse] = useState<any>(null);
   const { currentUser } = useAuth();
   const flatlistRef = useRef<any>(null);
 
@@ -52,6 +57,7 @@ const ChatRoomScreen = (({ navigation }) => {
             text: messageData.text,
             createdAt: messageData.createdAt,
             user: messageData.user,
+            image: messageData.image,
           };
 
           return data;
@@ -77,6 +83,7 @@ const ChatRoomScreen = (({ navigation }) => {
           name: currentUser.displayName,
           avatar: currentUser.photoURL,
         },
+        image: response?.assets ? response.assets[0].uri : null,
       });
     await firestore()
       .collection('chatrooms')
@@ -91,11 +98,30 @@ const ChatRoomScreen = (({ navigation }) => {
         { merge: true }
       );
     setMessage('');
+    setResponse(null);
   };
 
- const renderInputTool = () => {
+  const onImageLibraryPress = () => {
+    launchImageLibrary(
+      {
+        selectionLimit: 1,
+        mediaType: 'photo',
+        includeBase64: false,
+      },
+      setResponse
+    );
+  };
 
- }
+  const onCameraPress = () => {
+    launchCamera(
+      {
+        saveToPhotos: true,
+        mediaType: 'photo',
+        includeBase64: true,
+      },
+      setResponse
+    );
+  };
 
   const renderMessages = ({ item }) => {
     return (
@@ -124,6 +150,23 @@ const ChatRoomScreen = (({ navigation }) => {
           placeholder="Type a message...."
           placeholderTextColor="grey"
         />
+        <View>
+          <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+            <Icon name="photo" onPress={onImageLibraryPress} />
+            <Icon name="camera" onPress={onCameraPress} />
+          </View>
+          {response?.assets &&
+            response?.assets.map(({ uri }) => (
+              <View key={uri}>
+                <Image
+                  resizeMode="cover"
+                  resizeMethod="scale"
+                  style={{ width: 100, height: 100 }}
+                  source={{ uri: uri }}
+                />
+              </View>
+            ))}
+        </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
