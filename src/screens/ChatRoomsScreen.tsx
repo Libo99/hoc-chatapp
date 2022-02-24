@@ -63,7 +63,7 @@ const ChatRoomsScreen = (({ navigation }) => {
   };
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.userinfo}>
+      <View style={styles.userinfocontainer}>
         <View style={styles.userinfoleft}>
           <Image
             style={styles.userimage}
@@ -95,9 +95,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  userinfo: {
+  userinfocontainer: {
     flexDirection: 'row',
-
     marginBottom: 10,
     justifyContent: 'space-between',
   },

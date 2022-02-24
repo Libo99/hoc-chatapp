@@ -54,7 +54,7 @@ export default Message;
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 50,
+    marginVertical: 12,
     flex: 1,
     paddingHorizontal: 5,
   },
