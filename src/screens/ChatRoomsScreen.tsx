@@ -69,12 +69,12 @@ const ChatRoomsScreen = (({ navigation }) => {
             style={styles.userimage}
             source={{ uri: currentUser.photoURL }}
           />
-          <Text style={{ fontSize: 30, fontWeight: '800' }}>
+          <Text style={styles.username}>
             Hi {currentUser.displayName.split(' ')[0]}
           </Text>
         </View>
-        <TouchableOpacity onPress={signOut}>
-          <Text>Signout</Text>
+        <TouchableOpacity style={styles.signout} onPress={signOut}>
+          <Text style={styles.signouttext}>Sign out</Text>
         </TouchableOpacity>
       </View>
       <FlatList
@@ -99,6 +99,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 10,
     justifyContent: 'space-between',
+    color: 'black',
+    marginHorizontal: 5,
+  },
+  username: {
+    fontSize: 30,
+    fontWeight: '800',
+    color: 'black',
   },
   userinfoleft: {
     flexDirection: 'row',
@@ -109,5 +116,11 @@ const styles = StyleSheet.create({
     width: 50,
     borderRadius: 50,
     marginRight: 5,
+  },
+  signout: {
+    justifyContent: 'flex-start',
+  },
+  signouttext: {
+    color: 'black',
   },
 });
