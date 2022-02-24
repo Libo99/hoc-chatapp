@@ -1,4 +1,11 @@
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  FlatList,
+  RefreshControl,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthProvider';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -18,9 +25,13 @@ type NavigationProps = NativeStackScreenProps<
 const ChatRoomsScreen = (({ navigation }) => {
   const [chatRooms, setChatRooms] = useState<any>([]);
   const { currentUser, signOut } = useAuth();
+  const [refresh, setRefresh] = useState<boolean>(false);
 
   const fetchRooms = async () => {
-    const rooms = await firestore().collection('chatrooms').orderBy('latestmessage.createdAt', 'desc').get();
+    const rooms = await firestore()
+      .collection('chatrooms')
+      .orderBy('latestmessage.createdAt', 'desc')
+      .get();
     const allRooms = rooms.docs.map((room) => {
       const roomData = room.data();
       const data = {
@@ -30,10 +41,16 @@ const ChatRoomsScreen = (({ navigation }) => {
       return data;
     });
     setChatRooms(allRooms);
+    setRefresh(false);
   };
   useEffect(() => {
     fetchRooms();
   }, []);
+
+  const onRefresh = () => {
+    setRefresh(true);
+    fetchRooms();
+  };
 
   const renderChatRooms = ({ item }) => {
     return (
@@ -53,6 +70,9 @@ const ChatRoomsScreen = (({ navigation }) => {
           <Text>Signout</Text>
         </TouchableOpacity>
         <FlatList
+          onRefresh={onRefresh}
+          refreshing={refresh}
+          onEndReachedThreshold={0.8}
           data={chatRooms}
           renderItem={renderChatRooms}
           keyExtractor={(item) => item._id}
