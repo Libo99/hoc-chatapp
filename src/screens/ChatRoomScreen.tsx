@@ -22,6 +22,8 @@ import { ChatRoom } from '../types/ChatRoom';
 import Card from '../components/Card/Card';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { Icon } from 'react-native-elements';
+import storage from '@react-native-firebase/storage';
+import { utils } from '@react-native-firebase/app';
 
 type ChatRoomScreenParamList = {
   Chat: undefined;
@@ -32,6 +34,7 @@ const ChatRoomScreen = (({ navigation }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [message, setMessage] = useState<string>('');
   const [response, setResponse] = useState<any>(null);
+  const [userImage, setUserImage] = useState<any>();
   const { currentUser } = useAuth();
   const flatlistRef = useRef<any>(null);
 
@@ -83,7 +86,7 @@ const ChatRoomScreen = (({ navigation }) => {
           name: currentUser.displayName,
           avatar: currentUser.photoURL,
         },
-        image: response?.assets ? response.assets[0].uri : null,
+        image: userImage,
       });
     await firestore()
       .collection('chatrooms')
@@ -98,20 +101,32 @@ const ChatRoomScreen = (({ navigation }) => {
         { merge: true }
       );
     setMessage('');
-    setResponse(null);
+    setUserImage(null);
   };
 
-  const onImageLibraryPress = () => {
+  const onImageLibraryPress = async () => {
     launchImageLibrary(
       {
         selectionLimit: 1,
         mediaType: 'photo',
-        includeBase64: false,
+        includeBase64: true,
       },
-      setResponse
+      uploadImage
     );
   };
 
+  const uploadImage = async (image: any) => {
+    console.log(image);
+    const fileName = image.assets[0].fileName;
+    const uri = image.assets[0].uri;
+    const ref = storage().ref(`/images/${fileName}`);
+    const uploadTask = ref.putFile(uri);
+    uploadTask.on('state_changed', console.log, console.error, () => {
+      ref.getDownloadURL().then((url) => {
+        setUserImage(url);
+      });
+    });
+  };
   const onCameraPress = () => {
     launchCamera(
       {
@@ -119,7 +134,7 @@ const ChatRoomScreen = (({ navigation }) => {
         mediaType: 'photo',
         includeBase64: true,
       },
-      setResponse
+      uploadImage
     );
   };
 
@@ -155,17 +170,16 @@ const ChatRoomScreen = (({ navigation }) => {
             <Icon name="photo" onPress={onImageLibraryPress} />
             <Icon name="camera" onPress={onCameraPress} />
           </View>
-          {response?.assets &&
-            response?.assets.map(({ uri }) => (
-              <View key={uri}>
-                <Image
-                  resizeMode="cover"
-                  resizeMethod="scale"
-                  style={{ width: 100, height: 100 }}
-                  source={{ uri: uri }}
-                />
-              </View>
-            ))}
+          {userImage && (
+            <View key={userImage}>
+              <Image
+                resizeMode="cover"
+                resizeMethod="scale"
+                style={{ width: 100, height: 100 }}
+                source={{ uri: userImage }}
+              />
+            </View>
+          )}
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>

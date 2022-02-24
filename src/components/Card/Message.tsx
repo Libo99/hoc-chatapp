@@ -39,7 +39,7 @@ const Message = (({ chatMessage }) => {
           {chatMessage.image && (
             <Image
               source={{ uri: chatMessage.image }}
-              style={{ height: 100, width: 100 }}
+              style={{ height: 200, width: 200 }}
             />
           )}
         </View>
