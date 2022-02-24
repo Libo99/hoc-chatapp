@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>340600906367-sh12570l8mkpmg32escnc3c10d809qkc.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.340600906367-sh12570l8mkpmg32escnc3c10d809qkc</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>340600906367-4qd1t08bs62mpdtc067cckicdakkkp4t.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC8UnX74rt3_L428FdbtY3aPMALO_Bmo6M</string>
+	<key>GCM_SENDER_ID</key>
+	<string>340600906367</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.ragechat</string>
+	<key>PROJECT_ID</key>
+	<string>hoc-chatapp-20ac7</string>
+	<key>STORAGE_BUCKET</key>
+	<string>hoc-chatapp-20ac7.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:340600906367:ios:e3c17d69345a8a2239954a</string>
+</dict>
+</plist>
