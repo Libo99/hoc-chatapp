@@ -10,7 +10,7 @@
 
 4. IOS: After step 3 open a new terminal and run `npm run ios`
 
-5. ANDROID: Run `npm run android`
+5. ANDROID: Make sure to have an emulator ready. Then run `npm run android`
 
 # Troubleshooting
 ## Android emulator won't connect
@@ -25,3 +25,5 @@
 4. Click the arrow down icon under actions
 
 5. Then click wipe data.
+
+6. 
