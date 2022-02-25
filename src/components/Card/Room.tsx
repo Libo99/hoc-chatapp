@@ -1,7 +1,7 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import React from 'react';
 import { ChatRoom } from '../../types/ChatRoom';
-import { Button, ListItem } from 'react-native-elements';
+import { ListItem } from 'react-native-elements';
 
 interface CardProps {
   chatRoom: ChatRoom;

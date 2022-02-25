@@ -21,7 +21,6 @@ import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { Icon } from 'react-native-elements';
 import storage from '@react-native-firebase/storage';
 import { DateService } from '../services/Date.service';
-import { ChatroomService } from '../services/Chatroom.service';
 
 type ChatRoomScreenParamList = {
   Chat: undefined;
