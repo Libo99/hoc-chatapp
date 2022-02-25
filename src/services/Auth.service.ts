@@ -20,7 +20,7 @@ export class AuthService {
       await auth().signInWithCredential(googleCredential);
     } catch (error: any) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        Alert.alert('Signin cancelled');
+        Alert.alert('Sign in cancelled');
       }
     }
   }
@@ -44,7 +44,7 @@ export class AuthService {
       ]);
 
       if (result.isCancelled) {
-        Alert.alert('login process was cancelled');
+        Alert.alert('Sign in cancelled');
       }
 
       // Once signed in, get the users AccesToken
@@ -61,6 +61,7 @@ export class AuthService {
       // Sign-in the user with the credential
       await auth().signInWithCredential(facebookCredential);
     } catch (error) {
+      Alert.alert('Something went wrong, try again');
       console.error(error);
     }
   }

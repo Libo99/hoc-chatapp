@@ -21,6 +21,7 @@ import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { Icon } from 'react-native-elements';
 import storage from '@react-native-firebase/storage';
 import { DateService } from '../services/Date.service';
+import { ChatroomService } from '../services/Chatroom.service';
 
 type ChatRoomScreenParamList = {
   Chat: undefined;
@@ -71,33 +72,7 @@ const ChatRoomScreen = (({ navigation }) => {
   }, []);
 
   const handleSend = async () => {
-    await firestore()
-      .collection('chatrooms')
-      .doc(chatRoom._id)
-      .collection('messages')
-      .add({
-        text: message,
-        createdAt: DateService.getNewDate(),
-        user: {
-          _id: currentUser.uid,
-          email: currentUser.email,
-          name: currentUser.displayName,
-          avatar: currentUser.photoURL,
-        },
-        image: userImage ? userImage : null,
-      });
-    await firestore()
-      .collection('chatrooms')
-      .doc(chatRoom._id)
-      .set(
-        {
-          latestmessage: {
-            text: message,
-            createdAt: DateService.getNewDate(),
-          },
-        },
-        { merge: true }
-      );
+    await ChatroomService.handleSend(chatRoom, currentUser, message, userImage);
     setMessage('');
     setUserImage(null);
   };
