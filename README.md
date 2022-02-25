@@ -14,5 +14,5 @@
 
 # TroubleShooting
     ## Android emulator wouldn't connect
-        If the android emulator won't connect, try to open Android studio click on the three dots
-        [Example](./assets/androidstudioexample.png)
+    If the android emulator won't connect, try to open Android studio click on the three dots
+        ![Example](./assets/androidstudioexample.png)
