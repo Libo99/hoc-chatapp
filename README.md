@@ -12,11 +12,15 @@
 
 5. ANDROID: Make sure to have an emulator ready. Then run `npm run android` in the new terminal.
 
+# Facebook Login
+    To login with facebook you'll need to use a test user.
+    The test user will be provided in the mail
+
 # Troubleshooting
 ## Android emulator won't connect
-1.Turn off the emulator
+1. Turn off the emulator
 
-2.Open Android studio click on the three dots:
+2. Open Android studio click on the three dots:
         ![Example](./assets/androidstudioexample.png)
 
 3. Then click "Virtual device manager"
