@@ -1,5 +1,6 @@
 import {
   FlatList,
+  RefreshControl,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -11,6 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import firestore from '@react-native-firebase/firestore';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Card from '../components/Card/Card';
+import { Image } from 'react-native-elements';
 
 type ChatRoomsScreenParamList = {
   ChatRooms: undefined;
@@ -24,9 +26,13 @@ type NavigationProps = NativeStackScreenProps<
 const ChatRoomsScreen = (({ navigation }) => {
   const [chatRooms, setChatRooms] = useState<any>([]);
   const { currentUser, signOut } = useAuth();
+  const [refresh, setRefresh] = useState<boolean>(false);
 
   const fetchRooms = async () => {
-    const rooms = await firestore().collection('chatrooms').get();
+    const rooms = await firestore()
+      .collection('chatrooms')
+      .orderBy('latestmessage.createdAt', 'desc')
+      .get();
     const allRooms = rooms.docs.map((room) => {
       const roomData = room.data();
       const data = {
@@ -36,10 +42,16 @@ const ChatRoomsScreen = (({ navigation }) => {
       return data;
     });
     setChatRooms(allRooms);
+    setRefresh(false);
   };
   useEffect(() => {
     fetchRooms();
   }, []);
+
+  const onRefresh = () => {
+    setRefresh(true);
+    fetchRooms();
+  };
 
   const renderChatRooms = ({ item }) => {
     return (
@@ -51,21 +63,28 @@ const ChatRoomsScreen = (({ navigation }) => {
   };
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.container2}>
-        <Text>Hi {currentUser.displayName}</Text>
-        <Text>ChatRooms</Text>
-        {/* <TouchableOpacity onPress={signOut}>
-          <Text>SignOut</Text>
-        </TouchableOpacity> */}
-        <>
-          <FlatList
-            style={{ flex: 1 }}
-            data={chatRooms}
-            renderItem={renderChatRooms}
-            keyExtractor={(item) => item._id}
+      <View style={styles.userinfocontainer}>
+        <View style={styles.userinfoleft}>
+          <Image
+            style={styles.userimage}
+            source={{ uri: currentUser.photoURL }}
           />
-        </>
+          <Text style={styles.username}>
+            Hi {currentUser.displayName.split(' ')[0]}
+          </Text>
+        </View>
+        <TouchableOpacity style={styles.signout} onPress={signOut}>
+          <Text style={styles.signouttext}>Sign out</Text>
+        </TouchableOpacity>
       </View>
+      <FlatList
+        onRefresh={onRefresh}
+        refreshing={refresh}
+        onEndReachedThreshold={0.8}
+        data={chatRooms}
+        renderItem={renderChatRooms}
+        keyExtractor={(item) => item._id}
+      />
     </SafeAreaView>
   );
 }) as React.FC<NavigationProps>;
@@ -76,11 +95,32 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  container2: {
-    flex: 1,
-    justifyContent: 'center',
-
-    display: 'flex',
-    flexDirection: 'column',
+  userinfocontainer: {
+    flexDirection: 'row',
+    marginBottom: 10,
+    justifyContent: 'space-between',
+    color: 'black',
+    marginHorizontal: 5,
+  },
+  username: {
+    fontSize: 30,
+    fontWeight: '800',
+    color: 'black',
+  },
+  userinfoleft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  userimage: {
+    height: 50,
+    width: 50,
+    borderRadius: 50,
+    marginRight: 5,
+  },
+  signout: {
+    justifyContent: 'flex-start',
+  },
+  signouttext: {
+    color: 'black',
   },
 });

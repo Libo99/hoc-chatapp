@@ -5,4 +5,5 @@ export interface ChatMessage {
   text: string;
   createdAt: Date;
   user: User;
+  image?: any;
 }

@@ -10,13 +10,15 @@ interface MessageProps {
 const Message = (({ chatMessage }) => {
   const { currentUser } = useAuth();
   return (
-    <>
+    <View
+      style={[
+        styles.container,
+        currentUser.uid === chatMessage.user._id ? styles.user : styles.other,
+      ]}
+    >
       <Image
         source={{
-          uri:
-            currentUser.uid !== chatMessage.user._id
-              ? chatMessage.user.avatar
-              : undefined,
+          uri: chatMessage.user.avatar,
         }}
         style={
           currentUser.uid !== chatMessage.user._id
@@ -24,42 +26,73 @@ const Message = (({ chatMessage }) => {
             : [styles.image, styles.userimage]
         }
       />
-      <View
-        style={
-          currentUser.uid === chatMessage.user._id
-            ? [styles.bubble, styles.userbubble]
-            : [styles.bubble, styles.otherbubble]
-        }
-      >
-        <Text lineBreakMode="tail" numberOfLines={2}>
-          {currentUser.displayName !== chatMessage.user.name
-            ? chatMessage.user.name
-            : ''}
+      <View style={styles.bubblecontainer}>
+        <Text style={styles.username}>{chatMessage.user.name}</Text>
+        <View
+          style={
+            currentUser.uid === chatMessage.user._id
+              ? [styles.bubble, styles.userbubble]
+              : [styles.bubble, styles.otherbubble]
+          }
+        >
+          <Text>{chatMessage.text}</Text>
+          {chatMessage.image && (
+            <Image
+              source={{ uri: chatMessage.image }}
+              style={{ height: 200, width: 200 }}
+            />
+          )}
+        </View>
+        <Text style={styles.date}>
+          {new Date(chatMessage.createdAt).toLocaleString([], {
+            hour: 'numeric',
+            minute: 'numeric',
+            day: 'numeric',
+            weekday: 'short',
+          })}
         </Text>
-        <Text>{chatMessage.text}</Text>
-        <Text>{new Date(chatMessage.createdAt).toLocaleTimeString()}</Text>
       </View>
-    </>
+    </View>
   );
 }) as React.FC<MessageProps>;
 
 export default Message;
 
 const styles = StyleSheet.create({
+  container: {
+    marginVertical: 12,
+    flex: 1,
+    paddingHorizontal: 5,
+  },
+  user: {
+    flexDirection: 'row-reverse',
+  },
+  other: {
+    flexDirection: 'row',
+  },
+  bubblecontainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
   bubble: {
-    borderRadius: 5,
+    borderRadius: 9,
     marginBottom: 10,
+    marginHorizontal: 10,
     paddingHorizontal: 10,
+    paddingVertical: 12,
     alignItems: 'flex-start',
   },
   userbubble: {
     alignSelf: 'flex-end',
-    backgroundColor: 'blue',
+    backgroundColor: 'lightblue',
   },
   otherbubble: {
     alignSelf: 'flex-start',
-
-    backgroundColor: 'grey',
+    backgroundColor: 'darkgrey',
+  },
+  username: {
+    fontSize: 10,
+    marginBottom: 2,
   },
   image: {
     height: 50,
@@ -71,5 +104,8 @@ const styles = StyleSheet.create({
   },
   otherimage: {
     alignSelf: 'flex-start',
+  },
+  date: {
+    fontSize: 9,
   },
 });
