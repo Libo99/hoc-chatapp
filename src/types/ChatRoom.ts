@@ -1,4 +1,4 @@
-import { ChatMessage } from "./ChatMessage";
+import { ChatMessage } from './ChatMessage';
 
 export interface ChatRoom {
   _id: string;
@@ -6,4 +6,3 @@ export interface ChatRoom {
   description: string;
   messages: ChatMessage;
 }
-

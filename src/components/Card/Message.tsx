@@ -2,6 +2,7 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { ChatMessage } from '../../types/ChatMessage';
 import { useAuth } from '../../context/AuthProvider';
+import { DateService } from '../../services/Date.service';
 
 interface MessageProps {
   chatMessage: ChatMessage;
@@ -43,13 +44,9 @@ const Message = (({ chatMessage }) => {
             />
           )}
         </View>
+
         <Text style={styles.date}>
-          {new Date(chatMessage.createdAt).toLocaleString([], {
-            hour: 'numeric',
-            minute: 'numeric',
-            day: 'numeric',
-            weekday: 'short',
-          })}
+          {DateService.formatDate(chatMessage.createdAt)}
         </Text>
       </View>
     </View>

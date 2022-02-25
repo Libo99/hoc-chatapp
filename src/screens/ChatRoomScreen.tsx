@@ -1,15 +1,11 @@
 import {
   Alert,
-  Button,
   FlatList,
   Image,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
-  Text,
   TextInput,
   View,
 } from 'react-native';
@@ -24,7 +20,7 @@ import Card from '../components/Card/Card';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { Icon } from 'react-native-elements';
 import storage from '@react-native-firebase/storage';
-import { utils } from '@react-native-firebase/app';
+import { DateService } from '../services/Date.service';
 
 type ChatRoomScreenParamList = {
   Chat: undefined;
@@ -34,7 +30,6 @@ type NavigationProps = NativeStackScreenProps<ChatRoomScreenParamList, 'Chat'>;
 const ChatRoomScreen = (({ navigation }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [message, setMessage] = useState<string>('');
-  const [response, setResponse] = useState<any>(null);
   const [userImage, setUserImage] = useState<any>();
   const { currentUser } = useAuth();
   const flatlistRef = useRef<any>(null);
@@ -43,11 +38,13 @@ const ChatRoomScreen = (({ navigation }) => {
 
   const { chatRoom } = route.params;
 
+  //change header title based on room name
   useEffect(() => {
     navigation.setOptions({ title: chatRoom.name });
   }, [chatRoom]);
 
   useEffect(() => {
+    //add a listener for the messages
     const messagesListener = firestore()
       .collection('chatrooms')
       .doc(chatRoom._id)
@@ -80,7 +77,7 @@ const ChatRoomScreen = (({ navigation }) => {
       .collection('messages')
       .add({
         text: message,
-        createdAt: new Date().getTime(),
+        createdAt: DateService.getNewDate(),
         user: {
           _id: currentUser.uid,
           email: currentUser.email,
@@ -96,7 +93,7 @@ const ChatRoomScreen = (({ navigation }) => {
         {
           latestmessage: {
             text: message,
-            createdAt: new Date().getTime(),
+            createdAt: DateService.getNewDate(),
           },
         },
         { merge: true }
@@ -116,6 +113,8 @@ const ChatRoomScreen = (({ navigation }) => {
     );
   };
 
+  //uploads to storage then gets image from storage
+  //so it can be used in the handle send function
   const uploadImage = async (image: any) => {
     if (image.didCancel) return Alert.alert('Process Cancelled');
     try {
