@@ -15,6 +15,7 @@
 # Troubleshooting
 ## Android emulator won't connect
 1.turn off the emulator
+
 2.Open Android studio click on the three dots:
         ![Example](./assets/androidstudioexample.png)
 
