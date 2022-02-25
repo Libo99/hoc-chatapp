@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import React from 'react';
-import { useAuth } from '../context/AuthProvider';
 import SocialButton from '../components/SocialButton/SocialButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthService } from '../services/Auth.service';
+
 const LoginScreen = (() => {
   return (
     <SafeAreaView style={styles.container}>
