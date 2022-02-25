@@ -30,6 +30,6 @@
 
 5. Then click wipe data.
 
-6. Then open click the play button and wait for the emulator to turn.
+6. Then click the play button and wait for the emulator to turn.
 
 7. Then run `npm run android` in the terminal
