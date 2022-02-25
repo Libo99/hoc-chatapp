@@ -38,11 +38,13 @@ const ChatRoomScreen = (({ navigation }) => {
 
   const { chatRoom } = route.params;
 
+  //change header title based on room name
   useEffect(() => {
     navigation.setOptions({ title: chatRoom.name });
   }, [chatRoom]);
 
   useEffect(() => {
+    //add a listener for the messages
     const messagesListener = firestore()
       .collection('chatrooms')
       .doc(chatRoom._id)
@@ -111,6 +113,8 @@ const ChatRoomScreen = (({ navigation }) => {
     );
   };
 
+  //uploads to storage then gets image from storage
+  //so it can be used in the handle send function
   const uploadImage = async (image: any) => {
     if (image.didCancel) return Alert.alert('Process Cancelled');
     try {

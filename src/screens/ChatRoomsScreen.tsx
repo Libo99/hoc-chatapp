@@ -33,6 +33,7 @@ const ChatRoomsScreen = (({ navigation }) => {
     setChatRooms(rooms);
     setRefresh(false);
   };
+
   const onRefresh = async () => {
     setRefresh(true);
     await getRooms();
