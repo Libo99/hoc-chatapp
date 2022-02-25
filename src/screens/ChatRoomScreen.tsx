@@ -87,7 +87,7 @@ const ChatRoomScreen = (({ navigation }) => {
           name: currentUser.displayName,
           avatar: currentUser.photoURL,
         },
-        image: userImage,
+        image: userImage ? userImage : null,
       });
     await firestore()
       .collection('chatrooms')
