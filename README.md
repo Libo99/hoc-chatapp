@@ -12,7 +12,16 @@
 
 5. ANDROID: Run `npm run android`
 
-# TroubleShooting
-## Android emulator wouldn't connect
-If the android emulator won't connect, try to open Android studio click on the three dots
+# Troubleshooting
+## Android emulator won't connect
+1.turn off the emulator
+2.Open Android studio click on the three dots:
         ![Example](./assets/androidstudioexample.png)
+
+3. Then click "Virtual device manager"
+
+After a small window should open. 
+
+4. Click the arrow down icon under actions
+
+5. Then click wipe data.
