@@ -10,7 +10,7 @@
 
 4. IOS: After step 3 open a new terminal and run `npm run ios`
 
-5. ANDROID: Make sure to have an emulator ready. Then run `npm run android`
+5. ANDROID: Make sure to have an emulator ready. Then run `npm run android` in the new terminal.
 
 # Troubleshooting
 ## Android emulator won't connect
@@ -26,4 +26,6 @@
 
 5. Then click wipe data.
 
-6. 
+6. Then open click the play button and wait for the emulator to turn.
+
+7. Then run `npm run android` in the terminal
