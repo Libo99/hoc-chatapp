@@ -104,6 +104,7 @@ const ChatRoomScreen = (({ navigation }) => {
       });
     } catch (error: any) {
       Alert.alert('something wrong happened, try again');
+      console.error(error.message)
     }
   };
 
