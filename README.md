@@ -14,7 +14,7 @@
 
 # Facebook Login
     To login with facebook you'll need to use a test user.
-    The test user will be provided in the mail
+    The test user will be provided in the mail.
 
 # Troubleshooting
 ## Android emulator won't connect
