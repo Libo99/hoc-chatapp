@@ -1,15 +1,11 @@
 import {
   Alert,
-  Button,
   FlatList,
   Image,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
-  Text,
   TextInput,
   View,
 } from 'react-native';
@@ -25,6 +21,7 @@ import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { Icon } from 'react-native-elements';
 import storage from '@react-native-firebase/storage';
 import { DateService } from '../services/Date.service';
+import { ChatroomService } from '../services/Chatroom.service';
 
 type ChatRoomScreenParamList = {
   Chat: undefined;

@@ -4,15 +4,15 @@ import {
   Text,
   TouchableOpacity,
   View,
+  SafeAreaView,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthProvider';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import firestore from '@react-native-firebase/firestore';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Card from '../components/Card/Card';
 import { Image } from 'react-native-elements';
 import { AuthService } from '../services/Auth.service';
+import { ChatroomService } from '../services/Chatroom.service';
 
 type ChatRoomsScreenParamList = {
   ChatRooms: undefined;
@@ -28,30 +28,19 @@ const ChatRoomsScreen = (({ navigation }) => {
   const { currentUser } = useAuth();
   const [refresh, setRefresh] = useState<boolean>(false);
 
-  const fetchRooms = async () => {
-    const rooms = await firestore()
-      .collection('chatrooms')
-      .orderBy('latestmessage.createdAt', 'desc')
-      .get();
-    const allRooms = rooms.docs.map((room) => {
-      const roomData = room.data();
-      const data = {
-        _id: room.id,
-        ...roomData,
-      };
-      return data;
-    });
-    setChatRooms(allRooms);
+  const getRooms = async () => {
+    const rooms = await ChatroomService.fetchRooms();
+    setChatRooms(rooms);
     setRefresh(false);
   };
-  useEffect(() => {
-    fetchRooms();
-  }, []);
-
-  const onRefresh = () => {
+  const onRefresh = async () => {
     setRefresh(true);
-    fetchRooms();
+    await getRooms();
   };
+
+  useEffect(() => {
+    getRooms();
+  }, []);
 
   const renderChatRooms = ({ item }) => {
     return (
