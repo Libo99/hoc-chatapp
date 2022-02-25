@@ -20,7 +20,7 @@
         ![Example](./assets/androidstudioexample.png)
 
 3. Then click "Virtual device manager"
-        After that a small window should open. 
+            After that a small window should open. 
 
 4. Click the arrow down icon under actions
 
