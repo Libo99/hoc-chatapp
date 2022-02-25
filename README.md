@@ -1,4 +1,4 @@
-#Rage Chat
+# Rage Chat
 
 1. When you have cloned the project, run `npm install` from the root folder and then `cd ios && pod install` to install the dependencies.
 
