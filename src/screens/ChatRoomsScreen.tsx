@@ -1,6 +1,5 @@
 import {
   FlatList,
-  RefreshControl,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -13,6 +12,7 @@ import firestore from '@react-native-firebase/firestore';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Card from '../components/Card/Card';
 import { Image } from 'react-native-elements';
+import { AuthService } from '../services/Auth.service';
 
 type ChatRoomsScreenParamList = {
   ChatRooms: undefined;
@@ -25,7 +25,7 @@ type NavigationProps = NativeStackScreenProps<
 
 const ChatRoomsScreen = (({ navigation }) => {
   const [chatRooms, setChatRooms] = useState<any>([]);
-  const { currentUser, signOut } = useAuth();
+  const { currentUser } = useAuth();
   const [refresh, setRefresh] = useState<boolean>(false);
 
   const fetchRooms = async () => {
@@ -73,7 +73,7 @@ const ChatRoomsScreen = (({ navigation }) => {
             Hi {currentUser.displayName.split(' ')[0]}
           </Text>
         </View>
-        <TouchableOpacity style={styles.signout} onPress={signOut}>
+        <TouchableOpacity style={styles.signout} onPress={AuthService.signOut}>
           <Text style={styles.signouttext}>Sign out</Text>
         </TouchableOpacity>
       </View>

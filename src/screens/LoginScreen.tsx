@@ -3,10 +3,8 @@ import React from 'react';
 import { useAuth } from '../context/AuthProvider';
 import SocialButton from '../components/SocialButton/SocialButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
+import { AuthService } from '../services/Auth.service';
 const LoginScreen = (() => {
-  const { googleLogin, facebookLogin } = useAuth();
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.spacer} />
@@ -25,13 +23,13 @@ const LoginScreen = (() => {
         <SocialButton
           type="google"
           title="Log in with Google"
-          onPress={googleLogin}
+          onPress={AuthService.googleLogin}
         />
         <View style={styles.spacer} />
         <SocialButton
           type="facebook"
           title="Log in with Facebook"
-          onPress={facebookLogin}
+          onPress={AuthService.facebookLogin}
         />
       </View>
     </SafeAreaView>
@@ -76,6 +74,6 @@ const styles = StyleSheet.create({
   buttonscontainer: {
     flex: 1,
     justifyContent: 'flex-start',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 });
