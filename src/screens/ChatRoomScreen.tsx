@@ -24,7 +24,7 @@ import Card from '../components/Card/Card';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { Icon } from 'react-native-elements';
 import storage from '@react-native-firebase/storage';
-import { utils } from '@react-native-firebase/app';
+import { DateService } from '../services/Date.service';
 
 type ChatRoomScreenParamList = {
   Chat: undefined;
@@ -34,7 +34,6 @@ type NavigationProps = NativeStackScreenProps<ChatRoomScreenParamList, 'Chat'>;
 const ChatRoomScreen = (({ navigation }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [message, setMessage] = useState<string>('');
-  const [response, setResponse] = useState<any>(null);
   const [userImage, setUserImage] = useState<any>();
   const { currentUser } = useAuth();
   const flatlistRef = useRef<any>(null);
@@ -80,7 +79,7 @@ const ChatRoomScreen = (({ navigation }) => {
       .collection('messages')
       .add({
         text: message,
-        createdAt: new Date().getTime(),
+        createdAt: DateService.getNewDate(),
         user: {
           _id: currentUser.uid,
           email: currentUser.email,
@@ -96,7 +95,7 @@ const ChatRoomScreen = (({ navigation }) => {
         {
           latestmessage: {
             text: message,
-            createdAt: new Date().getTime(),
+            createdAt: DateService.getNewDate(),
           },
         },
         { merge: true }
