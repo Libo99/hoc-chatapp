@@ -1,3 +1,3 @@
-#Rage Chat
+# Rage Chat
 
-###A simple chat app that I made.
+### A simple chat app that I made.
