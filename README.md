@@ -1,1 +1,3 @@
-Fully functional Chat app that I made.
+#Rage Chat
+
+###A simple chat app that I made.
